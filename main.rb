@@ -1,4 +1,5 @@
 require_relative 'student'
+require_relative 'course'
 
 # ================================================== STUDENT MANAGEMENT ==================================================
 def add_student # ----- Add student -----
@@ -81,4 +82,22 @@ loop do # ----- student management -----
     else
         puts "Invalid option. Please try again."
     end
+end
+
+# ================================================== COURSE MANAGEMENT ==================================================
+def add_course # ----- Add Course -----
+    course_id = Course.all.size + 1
+
+    puts "\n=================================================="
+    puts "CREATING NEW COURSE RECORD\n"
+
+    print "Enter Course Name: "
+    name = gets.chomp
+
+    course = Course.new(id, name)
+    course.save
+
+    puts "=================================================="
+    puts "\n#{course.display}"
+    puts "\nCOURSE ADDED SUCCESSFULLY!"
 end
