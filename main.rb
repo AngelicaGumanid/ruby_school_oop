@@ -6,9 +6,9 @@ def add_student # ----- Add student -----
     student_id = Student.all.size + 1
 
     puts "\n=================================================="
-    puts "CREATING NEW STUDENT RECORD\n"
+    puts "CREATING NEW STUDENT RECORD"
 
-    print "Enter Full Name: "
+    print "\nEnter Full Name: "
     name = gets.chomp
 
     print "Birth Date: "
@@ -30,9 +30,9 @@ end
 
 def delete_student # ----- Delete student -----
     puts "\n=================================================="
-    puts "DELETE A STUDENT RECORD\n"
+    puts "DELETE A STUDENT RECORD"
 
-    print "Enter Student ID to delete: "
+    print "\nEnter Student ID to delete: "
     id = gets.chomp.to_i
     student = Student.find(id)
 
@@ -46,7 +46,7 @@ def delete_student # ----- Delete student -----
         print "\nAre you sure you want to delete? (y/n):  "
         action = gets.chomp
 
-        if action.downcase == 'y'
+        if action == 'y'
             student.destroy
             puts "\nStudent destroyed successfully.\n"
         end
@@ -55,7 +55,7 @@ def delete_student # ----- Delete student -----
     end
 end
 
-loop do # ----- student management -----
+loop do # ----- Student management -----
     system("clear")
     puts "\n======================================================================"
     puts "Choose a number to correspond to the action you want:"
@@ -75,7 +75,7 @@ loop do # ----- student management -----
         print "\nAre you sure you want to exit Student Management (y/n)? "
         action = gets.chomp
 
-        if action.downcase == 'y'
+        if action == 'y'
             puts "\nEXITING STUDENT MANAGEMENT!"
             break
         end
@@ -100,4 +100,55 @@ def add_course # ----- Add Course -----
     puts "=================================================="
     puts "\n#{course.display}"
     puts "\nCOURSE ADDED SUCCESSFULLY!"
+end
+
+def delete_course # ----- Delete course -----
+    puts "\n=================================================="
+    print "Enter Course ID to delete: "
+    id = gets.chomp.to_i
+    course = Course.find_by_id(id)
+
+    if course
+        puts "\nCourse ID: #{course.id}"
+        puts "Course Name: #{course.name}"
+        puts "=================================================="
+        print "\nAre you sure you want to delete? (y/n):  "
+        action = gets.chomp
+
+        if action == 'y'
+            course.destroy
+            print "\nCourse destroyed successfully!\n"
+        end
+    else
+        puts "\nCourse not found!"
+    end
+end
+
+loop do # ----- Course management -----
+    system("clear")
+    puts "\n======================================================================"
+    puts "Choose a number to correspond to the action you want:"
+    puts "[1] Add Course Information"
+    puts "[2] Delete Course Information"
+    puts "[3] Exit Course Management"
+    puts "======================================================================\n"
+    print "\nWhat action would you like to do?: "
+    action = gets.chomp
+
+    case action
+    when "1"
+        add_course
+    when "2"
+        delete_course
+    when "3"
+        print "\nAre you sure you want to exit Course Management (y/n)? "
+        action = gets.chomp
+
+        if action == 'y'
+            puts "\nEXITING COURSE MANAGEMENT!"
+            break
+        end
+    else
+        puts "Invalid option. Please try again."
+    end
 end
