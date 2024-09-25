@@ -16,7 +16,7 @@ class Teacher
   end
 
   def destroy
-    @@record.delete(self)
+    self.deleted_at = Time.now
   end
 
   def display
@@ -30,7 +30,7 @@ class Teacher
   end
 
   def self.all
-    @@record
+    @@record.select { |teacher| teacher.deleted_at.nil? }
   end
 
   def self.find_by_id(id)

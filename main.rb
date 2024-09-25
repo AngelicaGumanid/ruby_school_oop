@@ -73,8 +73,10 @@ loop do # ----- Student management -----
     when "2"
         delete_student
     when "3"
+        puts "\n==================================================\n"
+        puts "STUDENT INFORMATION RECORD\n"
         Student.display_all
-    when "3"
+    when "4"
         print "\nAre you sure you want to exit Student Management (y/n)? "
         action = gets.chomp
 
@@ -145,6 +147,8 @@ loop do # ----- Course management -----
     when "2"
         delete_course
     when "3"
+        puts "\n==================================================\n"
+        puts "COURSE INFORMATION RECORD\n"
         Course.display_all
     when "4"
         print "\nAre you sure you want to exit Course Management (y/n)? "
@@ -217,6 +221,8 @@ loop do # ----- Subject management -----
     when "2"
         delete_subject
     when "3"
+        puts "\n==================================================\n"
+        puts "SUBJECT INFORMATION RECORD\n"
         Subject.display_all
     when "4"
         print "\nAre you sure you want to exit Subject Management (y/n)? "
@@ -292,7 +298,7 @@ loop do # ----- Teacher management -----
     puts "[1] Add Teacher Information"
     puts "[2] Delete Teacher Information"
     puts "[3] Show all Teacher Information"
-    puts "[3] Exit Teacher Management"
+    puts "[4] Exit Teacher Management"
     puts "======================================================================\n"
     print "\nWhat action would you like to do?: "
     action = gets.chomp
@@ -303,8 +309,10 @@ loop do # ----- Teacher management -----
     when "2"
         delete_teacher
     when "3"
+        puts "\n==================================================\n"
+        puts "TEACHER INFORMATION RECORD\n"
         Teacher.display_all
-    when "3"
+    when "4"
         print "\nAre you sure you want to exit Teacher Management (y/n)? "
         action = gets.chomp
 
