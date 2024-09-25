@@ -11,7 +11,16 @@ class Student
     end
 
     def save
-        @@record << self
+        existing_student = self.class.find_by_id(self.id)
+        if existing_student
+            existing_student.name = self.name
+            existing_student.email = self.email
+            existing_student.phone_number = self.phone_number
+            puts "Student updated successfully!"
+        else
+            @@record << self
+            puts "Student added successfully!"
+        end
     end
 
     def destroy

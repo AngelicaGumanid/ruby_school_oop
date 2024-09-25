@@ -8,7 +8,14 @@ class Subject
   end
 
   def save
-    @@record << save
+    existing_subject = self.class.find_by_id(self.id)
+    if existing_subject
+      existing_subject.name = self.name
+      puts "Subject updated successfully!"
+    else
+      @@record << self
+      puts "Subject added successfully!"
+    end
   end
 
   def destroy

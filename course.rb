@@ -8,7 +8,14 @@ class Course
   end
 
   def save
-    @@record << self
+    existing_course = self.class.find_by_id(self.id)
+    if existing_course
+      existing_course.name = self.name
+      puts "Course updated successfully!"
+    else
+      @@record << self
+      puts "Course added successfully!"
+    end
   end
 
   def destroy

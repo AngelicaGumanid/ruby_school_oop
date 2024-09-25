@@ -12,7 +12,17 @@ class Teacher
   end
 
   def save
-    @@record << self
+    existing_teacher = self.class.find_by_id(self.id)
+    if existing_teacher
+      existing_teacher.name = self.name
+      existing_teacher.email = self.email
+      existing_teacher.phone_number = self.phone_number
+      existing_teacher.department = self.department
+      puts "Teacher updated successfully!"
+    else
+      @@record << self
+      puts "Teacher added successfully!"
+    end
   end
 
   def destroy
