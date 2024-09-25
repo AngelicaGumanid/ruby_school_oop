@@ -152,3 +152,21 @@ loop do # ----- Course management -----
         puts "Invalid option. Please try again."
     end
 end
+
+# ================================================== SUBJECT MANAGEMENT ==================================================
+def add_course # ----- Add Course -----
+    subject_id = Subject.all.size + 1
+
+    puts "\n=================================================="
+    print "CREATING NEW SUBJECT"
+
+    print "\nEnter Subject Name: "
+    name = gets.chomp
+
+    subject = Subject.new(id, name)
+    subject.save
+
+    puts "=================================================="
+    puts "\n#{subject.display}"
+    puts "\nSUBJECT ADDED SUCCESSFULLY!"
+end
