@@ -19,6 +19,12 @@ class Subject
     print "ID: #{id}, Name: #{name}"
   end
 
+  def self.display_all
+    all.each do |subject|
+      puts "Subject ID: #{subject.id}, Subject Name: #{subject.name}"
+    end
+  end
+
   def self.all
     @@record
   end

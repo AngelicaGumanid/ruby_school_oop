@@ -20,7 +20,13 @@ class Teacher
   end
 
   def display
-    print "ID: #{id}, Name: #{name}, Birthdate: #{birth_date}, Email: #{email}, Phone number: #{phone_number}, Department: #{department}"
+    print "Teacher ID: #{id}, Name: #{name}, Birthdate: #{birth_date}, Email: #{email}, Phone number: #{phone_number}, Department: #{department}"
+  end
+
+  def self.display_all
+    all.each do |teacher|
+      puts "Teacher ID: #{teacher.id}, Name: #{teacher.name}, Email: #{teacher.email}, Phone: #{teacher.phone_number}, Department: #{teacher.department}"
+    end
   end
 
   def self.all
