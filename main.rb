@@ -1,5 +1,7 @@
 require_relative 'student'
 require_relative 'course'
+require_relative 'subject'
+require_relative 'teacher'
 
 # ================================================== STUDENT MANAGEMENT ==================================================
 def add_student # ----- Add student -----
@@ -20,8 +22,13 @@ def add_student # ----- Add student -----
     print "Enter Phone Number: "
     phone_number = gets.chomp
 
+    if Course.all.empty?
+        puts "\nNo courses available. Please add a course first."
+        return
+    end
+    puts "\nPLEASE CHOOSE AN AVAILABLE COURSE."
     Course.display_all
-    print "Enter Course ID for the Student:"
+    print "Enter Course ID for the Student: "
     course_id = gets.chomp.to_i
 
     student = Student.new(student_id, name, birth_date, email, phone_number, course_id)
@@ -38,7 +45,7 @@ def delete_student # ----- Delete student -----
 
     print "\nEnter Student ID to delete: "
     id = gets.chomp.to_i
-    student = Student.find(id)
+    student = Student.find_by_id(id)
 
     if student
         puts "\nStudent ID: #{student.id}"
@@ -59,37 +66,39 @@ def delete_student # ----- Delete student -----
     end
 end
 
-loop do # ----- Student management -----
-    system("clear")
-    puts "\n======================================================================"
-    puts "Choose a number to correspond to the action you want:"
-    puts "[1] Add Student Information"
-    puts "[2] Delete Student Information"
-    puts "[3] Show all Student Information"
-    puts "[4] Exit Student Management"
-    puts "======================================================================\n"
-    print "\nWhat action would you like to do?: "
-    action = gets.chomp
-
-    case action
-    when "1"
-        add_student
-    when "2"
-        delete_student
-    when "3"
-        puts "\n==================================================\n"
-        puts "STUDENT INFORMATION RECORD\n"
-        Student.display_all
-    when "4"
-        print "\nAre you sure you want to exit Student Management (y/n)? "
+def student_management
+    loop do # ----- Student management -----
+        system("clear")
+        puts "\n======================================================================"
+        puts "Choose a number to correspond to the action you want:"
+        puts "[1] Add Student Information"
+        puts "[2] Delete Student Information"
+        puts "[3] Show all Student Information"
+        puts "[4] Exit Student Management"
+        puts "======================================================================\n"
+        print "\nWhat action would you like to do?: "
         action = gets.chomp
-
-        if action == 'y'
-            puts "\nEXITING STUDENT MANAGEMENT!"
-            break
+    
+        case action
+        when "1"
+            add_student
+        when "2"
+            delete_student
+        when "3"
+            puts "\n==================================================\n"
+            puts "STUDENT INFORMATION RECORD\n"
+            Student.display_all
+        when "4"
+            print "\nAre you sure you want to exit Student Management (y/n)? "
+            action = gets.chomp
+    
+            if action == 'y'
+                puts "\nEXITING STUDENT MANAGEMENT!"
+                break
+            end
+        else
+            puts "\nINVALID OPTION! PLEASE MAKE SURE YOU TYPE THE CORRECT SPELLING! TRY AGAIN!"
         end
-    else
-        puts "\nINVALID OPTION! PLEASE MAKE SURE YOU TYPE THE CORRECT SPELLING! TRY AGAIN!"
     end
 end
 
@@ -103,7 +112,7 @@ def add_course # ----- Add Course -----
     print "Enter Course Name: "
     name = gets.chomp
 
-    course = Course.new(id, name)
+    course = Course.new(course_id, name)
     course.save
 
     puts "=================================================="
@@ -133,37 +142,39 @@ def delete_course # ----- Delete course -----
     end
 end
 
-loop do # ----- Course management -----
-    system("clear")
-    puts "\n======================================================================"
-    puts "Choose a number to correspond to the action you want:"
-    puts "[1] Add Course Information"
-    puts "[2] Delete Course Information"
-    puts "[3] Show all Course Information"
-    puts "[4] Exit Course Management"
-    puts "======================================================================\n"
-    print "\nWhat action would you like to do?: "
-    action = gets.chomp
-
-    case action
-    when "1"
-        add_course
-    when "2"
-        delete_course
-    when "3"
-        puts "\n==================================================\n"
-        puts "COURSE INFORMATION RECORD\n"
-        Course.display_all
-    when "4"
-        print "\nAre you sure you want to exit Course Management (y/n)? "
+def course_management
+    loop do # ----- Course management -----
+        system("clear")
+        puts "\n======================================================================"
+        puts "Choose a number to correspond to the action you want:"
+        puts "[1] Add Course Information"
+        puts "[2] Delete Course Information"
+        puts "[3] Show all Course Information"
+        puts "[4] Exit Course Management"
+        puts "======================================================================\n"
+        print "\nWhat action would you like to do?: "
         action = gets.chomp
-
-        if action == 'y'
-            puts "\nEXITING COURSE MANAGEMENT!"
-            break
+    
+        case action
+        when "1"
+            add_course
+        when "2"
+            delete_course
+        when "3"
+            puts "\n==================================================\n"
+            puts "COURSE INFORMATION RECORD\n"
+            Course.display_all
+        when "4"
+            print "\nAre you sure you want to exit Course Management (y/n)? "
+            action = gets.chomp
+    
+            if action == 'y'
+                puts "\nEXITING COURSE MANAGEMENT!"
+                break
+            end
+        else
+            puts "\nINVALID OPTION! PLEASE MAKE SURE YOU TYPE THE CORRECT SPELLING! TRY AGAIN!"
         end
-    else
-        puts "\nINVALID OPTION! PLEASE MAKE SURE YOU TYPE THE CORRECT SPELLING! TRY AGAIN!"
     end
 end
 
@@ -207,39 +218,42 @@ def delete_subject # ----- Delete subject -----
     end
 end
 
-loop do # ----- Subject management -----
-    system("clear")
-    puts "\n======================================================================"
-    puts "Choose a number to correspond to the action you want:"
-    puts "[1] Add Subject Information"
-    puts "[2] Delete Subject Information"
-    puts "[3] Show all Subject Information"
-    puts "[4] Exit Subject Management"
-    puts "======================================================================\n"
-    print "\nWhat action would you like to do?: "
-    action = gets.chomp
-
-    case action
-    when "1"
-        add_subject
-    when "2"
-        delete_subject
-    when "3"
-        puts "\n==================================================\n"
-        puts "SUBJECT INFORMATION RECORD\n"
-        Subject.display_all
-    when "4"
-        print "\nAre you sure you want to exit Subject Management (y/n)? "
+def subject_management
+    loop do # ----- Subject management -----
+        system("clear")
+        puts "\n======================================================================"
+        puts "Choose a number to correspond to the action you want:"
+        puts "[1] Add Subject Information"
+        puts "[2] Delete Subject Information"
+        puts "[3] Show all Subject Information"
+        puts "[4] Exit Subject Management"
+        puts "======================================================================\n"
+        print "\nWhat action would you like to do?: "
         action = gets.chomp
-
-        if action == 'y'
-            puts "\nEXITING SUBJECT MANAGEMENT!"
-            break
+    
+        case action
+        when "1"
+            add_subject
+        when "2"
+            delete_subject
+        when "3"
+            puts "\n==================================================\n"
+            puts "SUBJECT INFORMATION RECORD\n"
+            Subject.display_all
+        when "4"
+            print "\nAre you sure you want to exit Subject Management (y/n)? "
+            action = gets.chomp
+    
+            if action == 'y'
+                puts "\nEXITING SUBJECT MANAGEMENT!"
+                break
+            end
+        else
+            puts "\nINVALID OPTION! PLEASE MAKE SURE YOU TYPE THE CORRECT SPELLING! TRY AGAIN!"
         end
-    else
-        puts "\nINVALID OPTION! PLEASE MAKE SURE YOU TYPE THE CORRECT SPELLING! TRY AGAIN!"
     end
 end
+
 
 # ================================================== TEACHER MANAGEMENT ==================================================
 def add_teacher # ----- Add Teacher -----
@@ -295,33 +309,71 @@ def delete_teacher # ----- Delete teacher -----
     end
 end
 
-loop do # ----- Teacher management -----
+def teacher_management
+    loop do # ----- Teacher management -----
+        system("clear")
+        puts "\n======================================================================"
+        puts "Choose a number to correspond to the action you want:"
+        puts "[1] Add Teacher Information"
+        puts "[2] Delete Teacher Information"
+        puts "[3] Show all Teacher Information"
+        puts "[4] Exit Teacher Management"
+        puts "======================================================================\n"
+        print "\nWhat action would you like to do?: "
+        action = gets.chomp
+    
+        case action
+        when "1"
+            add_teacher
+        when "2"
+            delete_teacher
+        when "3"
+            puts "\n==================================================\n"
+            puts "TEACHER INFORMATION RECORD\n"
+            Teacher.display_all
+        when "4"
+            print "\nAre you sure you want to exit Teacher Management (y/n)? "
+            action = gets.chomp
+    
+            if action == 'y'
+                puts "\nEXITING TEACHER MANAGEMENT!"
+                break
+            end
+        else
+            puts "\nINVALID OPTION! PLEASE MAKE SURE YOU TYPE THE CORRECT SPELLING! TRY AGAIN!"
+        end
+    end
+end
+
+# ================================================== MAIN PROGRAM ==================================================
+loop do
     system("clear")
-    puts "\n======================================================================"
-    puts "Choose a number to correspond to the action you want:"
-    puts "[1] Add Teacher Information"
-    puts "[2] Delete Teacher Information"
-    puts "[3] Show all Teacher Information"
-    puts "[4] Exit Teacher Management"
-    puts "======================================================================\n"
-    print "\nWhat action would you like to do?: "
+    puts "\n========================================================================================================="
+    puts "CHOOSE A NUMBER TO CORRESPOND TO THE ACTION YOU WANT: "
+    puts "[1] Student Management"
+    puts "[2] Course Management"
+    puts '[3] Subject Management'
+    puts '[4] Teacher Management'
+    puts '[5] Exit the program'
+    puts "=========================================================================================================\n"
+    print "\nWhat action would you like to do? "
     action = gets.chomp
 
     case action
     when "1"
-        add_teacher
+        student_management
     when "2"
-        delete_teacher
+        course_management
     when "3"
-        puts "\n==================================================\n"
-        puts "TEACHER INFORMATION RECORD\n"
-        Teacher.display_all
+        subject_management
     when "4"
-        print "\nAre you sure you want to exit Teacher Management (y/n)? "
+        teacher_management
+    when "5"
+        print "\nAre you sure you want to exit the program (y/n)? "
         action = gets.chomp
 
         if action == 'y'
-            puts "\nEXITING TEACHER MANAGEMENT!"
+            puts "\nEXITING THE PROGRAM!"
             break
         end
     else

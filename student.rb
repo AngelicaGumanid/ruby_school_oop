@@ -1,14 +1,15 @@
 class Student
-    attr_accessor :id, :name, :birth_date, :email, :phone_number, :course_id
+    attr_accessor :id, :name, :birth_date, :email, :phone_number, :course_id, :deleted_at
     @@record = []
 
-    def initialize(id, name, birth_date, email, phone_number)
+    def initialize(id, name, birth_date, email, phone_number, course_id)
         @id = id
         @name = name
         @birth_date = birth_date
         @email = email
         @phone_number = phone_number
         @course_id = course_id
+        @deleted_at = nil
     end
 
     def save
@@ -46,7 +47,7 @@ class Student
     end
 
     def self.find(id)
-        @@record.find { |student| student.id == id}
+        @@record.find_by_id { |student| student.id == id}
     end
 
     def self.find_by_email(email)

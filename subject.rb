@@ -1,10 +1,11 @@
 class Subject
-  attr_accessor :id, :name
+  attr_accessor :id, :name, :deleted_at
   @@record = []
 
   def initialize(id, name)
     @id = id
     @name = name
+    @deleted_at = nil
   end
 
   def save

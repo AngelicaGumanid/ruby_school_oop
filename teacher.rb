@@ -1,5 +1,5 @@
 class Teacher
-  attr_accessor :id, :name, :birth_date, :email, :phone_number, :department
+  attr_accessor :id, :name, :birth_date, :email, :phone_number, :department, :deleted_at
   @@record = []
 
   def initialize(id, name, birth_date, email, phone_number, department)
@@ -9,6 +9,7 @@ class Teacher
     @email = email
     @phone_number = phone_number
     @department = department
+    @deleted_at = nil
   end
 
   def save
