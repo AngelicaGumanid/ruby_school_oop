@@ -1,4 +1,4 @@
-class Student
+ class Student
     attr_accessor :id, :name, :birth_date, :email, :phone_number, :course_id, :deleted_at
     @@record = []
 
