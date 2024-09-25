@@ -170,3 +170,54 @@ def add_course # ----- Add Course -----
     puts "\n#{subject.display}"
     puts "\nSUBJECT ADDED SUCCESSFULLY!"
 end
+
+def delete_subject # ----- Delete subject -----
+    puts "\n=================================================="
+    print "Enter Subject ID to delete: "
+    id = gets.chomp.to_i
+    subject = Subject.find_by_id(id)
+
+    if subject
+        puts "\nSubject ID: #{subject.id}"
+        puts "Subject Name: #{subject.name}"
+        puts "=================================================="
+        print "\nAre you sure you want to delete? (y/n):  "
+        action = gets.chomp
+
+        if action == 'y'
+            subject.destroy
+            print "\nSubject destroyed successfully!\n"
+        end
+    else
+        puts "\nSubject not found!"
+    end
+end
+
+loop do # ----- Subject management -----
+    system("clear")
+    puts "\n======================================================================"
+    puts "Choose a number to correspond to the action you want:"
+    puts "[1] Add Subject Information"
+    puts "[2] Delete Subject Information"
+    puts "[3] Exit Subject Management"
+    puts "======================================================================\n"
+    print "\nWhat action would you like to do?: "
+    action = gets.chomp
+
+    case action
+    when "1"
+        add_subject
+    when "2"
+        delete_subject
+    when "3"
+        print "\nAre you sure you want to exit Subject Management (y/n)? "
+        action = gets.chomp
+
+        if action == 'y'
+            puts "\nEXITING SUBJECT MANAGEMENT!"
+            break
+        end
+    else
+        puts "Invalid option. Please try again."
+    end
+end
