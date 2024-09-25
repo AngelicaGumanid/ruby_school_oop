@@ -20,7 +20,11 @@ def add_student # ----- Add student -----
     print "Enter Phone Number: "
     phone_number = gets.chomp
 
-    student = Student.new(student_id, name, birth_date, email, phone_number)
+    Course.display_all
+    print "Enter Course ID for the Student:"
+    course_id = gets.chomp.to_i
+
+    student = Student.new(student_id, name, birth_date, email, phone_number, course_id)
     student.save
 
     puts "==================================================\n\n"

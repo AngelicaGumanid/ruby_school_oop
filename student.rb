@@ -1,5 +1,5 @@
 class Student
-    attr_accessor :id, :name, :birth_date, :email, :phone_number
+    attr_accessor :id, :name, :birth_date, :email, :phone_number, :course_id
     @@record = []
 
     def initialize(id, name, birth_date, email, phone_number)
@@ -8,6 +8,7 @@ class Student
         @birth_date = birth_date
         @email = email
         @phone_number = phone_number
+        @course_id = course_id
     end
 
     def save
@@ -16,6 +17,7 @@ class Student
             existing_student.name = self.name
             existing_student.email = self.email
             existing_student.phone_number = self.phone_number
+            existing_student.course_id = self.course_id
             puts "Student updated successfully!"
         else
             @@record << self
@@ -28,12 +30,14 @@ class Student
     end
 
     def display
-        print "Student ID: #{id}, Name: #{name}, Birthdate: #{birth_date}, Email: #{email}, Phone number: #{phone_number}"
+        course = Course.find_by_id(self.course_id)
+        print "Student ID: #{id}, Name: #{name}, Birthdate: #{birth_date}, Email: #{email}, Phone number: #{phone_number}, Course: #{course.name if course} "
     end
 
     def self.display_all
         all.each do |student|
-          puts "Student ID: #{student.id}, Name: #{student.name}, Email: #{student.email}, Phone: #{student.phone_number}"
+            course = Course.find_by_id(self.course_id)
+            puts "Student ID: #{student.id}, Name: #{student.name}, Email: #{student.email}, Phone: #{student.phone_number}, Course: #{course.name if course}"
         end
     end
 
