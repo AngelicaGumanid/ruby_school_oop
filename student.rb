@@ -55,4 +55,25 @@
     def self.find_by_email(email)
         @@record.find { |student| student.email == email}
     end
+
+    def subjects
+        student_subjects = StudentSubject.all.select { |ss| ss.student_id == self.id }
+        student_subjects.map { |ss| Subject.find(ss.subject_id) }
+      end
+
+require_relative 'modified'
+
+class Student < Modified
+  attr_accessor :course_id
+
+  def initialize(id, name, birth_date, email, phone_number, course_id)
+    super(id, name, birth_date, email, phone_number)
+    @course_id = course_id
+  end
+
+  def display
+    "Student ID: #{@id}, Name: #{@name}, Course ID: #{@course_id}"
+  end
+end
+
 end

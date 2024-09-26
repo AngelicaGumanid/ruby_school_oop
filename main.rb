@@ -3,6 +3,8 @@ require_relative 'course'
 require_relative 'subject'
 require_relative 'teacher'
 require_relative 'course_subject'
+require_relative "student_subject"
+require_relative 'modified'
 
 # ================================================== STUDENT MANAGEMENT ==================================================
 def add_student # ----- Add student -----
@@ -31,6 +33,13 @@ def add_student # ----- Add student -----
     Course.display_all
     print "\nEnter Course ID for the Student: "
     course_id = gets.chomp.to_i
+
+    puts "Assigning subjects to the student..."
+    course.subjects.each do |subject|
+        student_subject = StudentSubject.new(StudentSubject.all.size + 1, student_id, subject.id)
+        student_subject.save
+    end
+    puts "Subjects assigned successfully!"
 
     student = Student.new(student_id, name, birth_date, email, phone_number, course_id)
     student.save
@@ -64,6 +73,20 @@ def delete_student # ----- Delete student -----
         end
     else
         puts "\nStudent not found."
+    end
+end
+
+def display_student_details
+    print "Enter Student ID: "
+    student_id = gets.chomp.to_i
+    student = Student.find_by_id(student_id)
+
+    if student
+        puts student.display
+        puts "Enrolled Subjects:"
+        student.subjects.each { |subject| puts subject.display }
+    else
+        puts "Student not found."
     end
 end
 

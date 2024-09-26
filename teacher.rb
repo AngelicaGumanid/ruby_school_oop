@@ -51,4 +51,19 @@ class Teacher
   def self.find_by_email(email)
     @@record.find { |teacher| teacher.email == email }
   end
+
+require_relative 'modified'
+class Teacher < Modified
+  attr_accessor :department
+
+  def initialize(id, name, birth_date, email, phone_number, department)
+    super(id, name, birth_date, email, phone_number)
+    @department = department
+  end
+
+  def display
+    "Teacher ID: #{@id}, Name: #{@name}, Department: #{@department}"
+  end
+end
+
 end
