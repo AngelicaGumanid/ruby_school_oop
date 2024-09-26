@@ -189,6 +189,23 @@ def remove_subject_from_course
     end
 end
 
+def display_course_details
+    print "Enter Course ID: "
+    course_id = gets.chomp.to_i
+    course = Course.find_by_id(course_id)
+
+    if course
+        puts "Course: #{course.name}"
+        puts "Students in this course:"
+        course.students.each { |student| puts student.display }
+
+        puts "Subjects in this course:"
+        course.subjects.each { |subject| puts subject.display }
+    else
+        puts "Course not found."
+    end
+end
+
 def course_management
     loop do # ----- Course management -----
         system("clear")
