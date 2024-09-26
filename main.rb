@@ -2,6 +2,7 @@ require_relative 'student'
 require_relative 'course'
 require_relative 'subject'
 require_relative 'teacher'
+require_relative 'course_subject'
 
 # ================================================== STUDENT MANAGEMENT ==================================================
 def add_student # ----- Add student -----
@@ -26,9 +27,9 @@ def add_student # ----- Add student -----
         puts "\nNo courses available. Please add a course first."
         return
     end
-    puts "\nPLEASE CHOOSE AN AVAILABLE COURSE."
+    puts "\nPLEASE CHOOSE AN AVAILABLE COURSE:"
     Course.display_all
-    print "Enter Course ID for the Student: "
+    print "\nEnter Course ID for the Student: "
     course_id = gets.chomp.to_i
 
     student = Student.new(student_id, name, birth_date, email, phone_number, course_id)
@@ -142,6 +143,52 @@ def delete_course # ----- Delete course -----
     end
 end
 
+def bind_subject_to_course # ----- Bind subject to course -----
+    if Course.all.empty?
+        puts "No courses available. Please add a course first."
+        return
+    end
+
+    puts "Select a Course ID: "
+    Course.display_all
+    course_id = gets.chomp.to_i
+
+    puts "Select a Subject ID to bind to Course: "
+    Subject.display_all
+    subject_id = gets.chomp.to_i
+
+    course_subject = CourseSubject.new(CourseSubject.all.size + 1, course_id, subject_id)
+    course_subject.save
+
+    puts "Subject bound to course successfully!"
+end
+
+def remove_subject_from_course
+    puts "Select a Course ID: "
+    Course.display_all
+    course_id = gets.chomp.to_i
+
+    puts "Select a Subject ID to remove from the Course: "
+    course_subjects = CourseSubject.all.select { |cs| cs.course_id == course_id }
+    
+    if course_subjects.empty?
+        puts "No subjects found for this course."
+        return
+    end
+
+    course_subjects.each { |cs| puts "Subject ID: #{cs.subject_id}" }
+    subject_id = gets.chomp.to_i
+
+    course_subject = CourseSubject.all.find { |cs| cs.course_id == course_id && cs.subject_id == subject_id }
+    
+    if course_subject
+        course_subject.destroy
+        puts "Subject removed from the course successfully!"
+    else
+        puts "Subject not found for this course."
+    end
+end
+
 def course_management
     loop do # ----- Course management -----
         system("clear")
@@ -150,7 +197,10 @@ def course_management
         puts "[1] Add Course Information"
         puts "[2] Delete Course Information"
         puts "[3] Show all Course Information"
-        puts "[4] Exit Course Management"
+        puts "[4] Add Subject to Course"
+        puts "[5] Remove Subject from Course"
+        puts "[6] Display Course Subjects"
+        puts "[7] Exit Course Management"
         puts "======================================================================\n"
         print "\nWhat action would you like to do?: "
         action = gets.chomp
@@ -165,6 +215,12 @@ def course_management
             puts "COURSE INFORMATION RECORD\n"
             Course.display_all
         when "4"
+            bind_subject_to_course
+        when "5"
+            remove_subject_from_course
+        when "6"
+            display_course_subjects
+        when "7"
             print "\nAre you sure you want to exit Course Management (y/n)? "
             action = gets.chomp
     

@@ -32,12 +32,14 @@
 
     def display
         course = Course.find_by_id(self.course_id)
+        course_name = course ? course.name : "None"
         print "Student ID: #{id}, Name: #{name}, Birthdate: #{birth_date}, Email: #{email}, Phone number: #{phone_number}, Course: #{course.name if course} "
     end
 
     def self.display_all
         all.each do |student|
-            course = Course.find_by_id(self.course_id)
+            course = Course.find_by_id(student.course_id)
+            course_name = course ? course.name : "None"
             puts "Student ID: #{student.id}, Name: #{student.name}, Email: #{student.email}, Phone: #{student.phone_number}, Course: #{course.name if course}"
         end
     end
@@ -46,8 +48,8 @@
         @@record.select { |student| student.deleted_at.nil? }
     end
 
-    def self.find(id)
-        @@record.find_by_id { |student| student.id == id}
+    def self.find_by_id(id)
+        @@record.find { |student| student.id == id}
     end
 
     def self.find_by_email(email)
